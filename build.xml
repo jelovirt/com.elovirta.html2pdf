@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns:if="ant:if" xmlns:unless="ant:unless">
+
+  <target name="dita2html2pdf.init">
+    <!--property name="preprocess.copy-image.skip" value="true"/-->
+    <property name="preprocess.copy-flag.skip" value="true"/>
+    <property name="clean-preprocess.use-result-filename" value="false"/>
+    <condition property="preprocess.chunk.skip" value="true">
+      <isfalse value="${org.dita.pdf2.chunk.enabled}"/>
+    </condition>
+    <property name="args.rellinks" value="nofamily"/>
+    <property name="nav-toc" value="full"/>
+  </target>
+
+  <target name="dita2html2pdf"
+    depends="dita2html2pdf.init,
+             html5.init,
+             build-init,
+             preprocess2,
+             dita2html2pdf.merge,
+             dita2html2pdf.html,
+             html5.css"/>
+
+  <target name="dita2html2pdf.merge" unless="noMap">
+    <dirname property="dita.temp.dir.fullpath" file="${dita.temp.dir}${file.separator}dummy.file"/>
+    <pipeline message="topicmerge" inputmap="${dita.temp.dir.fullpath}${file.separator}${user.input.file}"
+      tempdir="${dita.temp.dir.fullpath}">
+      <module class="org.dita.dost.module.TopicMergeModule">
+        <param name="output" location="${dita.temp.dir.fullpath}${file.separator}${dita.map.filename.root}_MERGED.xml"/>
+        <param name="style" location="${dita.plugin.org.dita.pdf2.dir}/xsl/common/topicmerge.xsl"/>
+      </module>
+    </pipeline>
+    <antcall target="dita2html2pdf.merge.map"/>
+  </target>
+
+  <target name="dita2html2pdf.merge.map"
+    depends="
+    transform.topic2pdf.init,
+    publish.map.pdf.init,
+    transform.topic2fo.init,
+    transform.topic2fo.index"/>
+
+  <target name="dita2html2pdf.html">
+    <condition property="outputFile.base" value="${args.output.base}" else="${dita.map.filename.root}">
+      <isset property="args.output.base"/>
+    </condition>
+    <property name="args.xsl" value="${dita.plugin.com.elovirta.html2pdf.dir}/xsl/dita2html5.xsl"/>
+    <pipeline message="Process the merged map to html5" taskname="m2h">
+      <xslt in="${dita.temp.dir.fullpath}/stage1.xml" out="${output.dir}/${outputFile.base}.html" style="${args.xsl}">
+        <param name="FILTERFILE" expression="${dita.input.valfile.url}" if:set="dita.input.valfile"/>
+        <param name="CSS" expression="${args.css.file}" if:set="args.css.file"/>
+        <param name="CSSPATH" expression="${user.csspath}" if:set="user.csspath"/>
+        <param name="HDF" expression="${args.hdf}" if:set="args.hdf"/>
+        <param name="HDR" expression="${args.hdr}" if:set="args.hdr"/>
+        <param name="FTR" expression="${args.ftr}" if:set="args.ftr"/>
+        <param name="DRAFT" expression="${args.draft}" if:set="args.draft"/>
+        <param name="ARTLBL" expression="${args.artlbl}" if:set="args.artlbl"/>
+        <param name="GENERATE-TASK-LABELS" expression="${args.gen.task.lbl}" if:set="args.gen.task.lbl"/>
+        <param name="PRESERVE-DITA-CLASS" expression="${args.html5.classattr}" if:set="args.html5.classattr"/>
+        <param name="NOPARENTLINK" expression="${args.hide.parent.link}" if:set="args.hide.parent.link"/>
+        <param name="include.rellinks" expression="${include.rellinks}"/>
+        <param name="INDEXSHOW" expression="${args.indexshow}" if:set="args.indexshow"/>
+        <param name="genDefMeta" expression="${args.gen.default.meta}" if:set="args.gen.default.meta"/>
+        <param name="OUTEXT" expression="${out.ext}" if:set="out.ext"/>
+        <param name="BASEDIR" expression="${dita.dir}"/>
+        <param name="OUTPUTDIR" expression="${dita.output.dir}"/>
+        <param name="defaultLanguage" expression="${default.language}"/>
+        <param name="nav-toc" expression="${html5.nav-toc}" if:set="html5.nav-toc"/>
+      </xslt>
+    </pipeline>
+  </target>
+
+</project>

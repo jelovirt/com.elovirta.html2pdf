@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="dita-ot/plugin.rnc" type="application/relax-ng-compact-syntax"?>
+<plugin id="com.elovirta.html2pdf" version="0.1.0">
+  <feature extension="ant.import" file="build.xml"/>
+  <transtype name="html2pdf" extends="html5"/>
+</plugin>
