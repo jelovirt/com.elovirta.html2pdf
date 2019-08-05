@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:opentopic="http://www.idiominc.com/opentopic"
-  version="2.0" exclude-result-prefixes="opentopic">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:opentopic="http://www.idiominc.com/opentopic" xmlns:opentopic-index="http://www.idiominc.com/opentopic/index"
+  version="2.0" exclude-result-prefixes="xs opentopic opentopic-index xs">
 
   <xsl:import href="plugin:org.dita.html5:xsl/dita2html5Impl.xsl"/>
 
   <xsl:output method="html" encoding="UTF-8" indent="no" doctype-system="about:legacy-compat" omit-xml-declaration="yes"/>
 
-  <xsl:variable name="input.map" select="/*[contains(@class, ' map/map ')]" as="element()"/>
-
-  <!-- root rule -->
-  <xsl:template match="/">
-    <xsl:apply-templates/>
-  </xsl:template>
-
-  <xsl:template match="/*[contains(@class, ' map/map ')]">
-    <xsl:apply-templates select="." mode="root_element"/>
-  </xsl:template>
+  <xsl:variable name="input.map" select="/dita/*[contains(@class, ' map/map ')]" as="element()"/>
 
   <xsl:template match="*" mode="root_element">
     <html>
@@ -24,13 +16,32 @@
       <body>
         <xsl:apply-templates select="." mode="addAttributesToHtmlBodyElement"/>
         <xsl:apply-templates select="." mode="addHeaderToHtmlBodyElement"/>
+        <xsl:apply-templates select="." mode="cover"/>
         <xsl:apply-templates select="." mode="gen-user-sidetoc"/>
         <main xsl:use-attribute-sets="main">
-          <xsl:apply-templates select="node() except opentopic:map" mode="addContentToHtmlBodyElement"/>
+          <xsl:apply-templates select="* except (*[contains(@class, ' map/map ')], opentopic-index:index.groups)"
+            mode="addContentToHtmlBodyElement"/>
         </main>
         <xsl:apply-templates select="." mode="addFooterToHtmlBodyElement"/>
       </body>
     </html>
+  </xsl:template>
+
+  <xsl:template match="*" mode="cover">
+    <header class="cover">
+      <h1>
+        <xsl:for-each select="*[contains(@class, ' map/map ')]">
+          <xsl:choose>
+            <xsl:when test="*[contains(@class, ' topic/title ')]">
+              <xsl:apply-templates select="*[contains(@class, ' topic/title ')]/node()"/>
+            </xsl:when>
+            <xsl:when test="@title">
+              <xsl:value-of select="@title"/>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:for-each>
+      </h1>
+    </header>
   </xsl:template>
 
   <xsl:template match="*" mode="addContentToHtmlBodyElement">
