@@ -10,6 +10,9 @@
     </condition>
     <property name="args.rellinks" value="nofamily"/>
     <property name="nav-toc" value="full"/>
+    <property name="args.copycss" value="yes"/>
+    <property name="args.css" value="print.css"/>
+    <property name="args.cssroot" location="${dita.plugin.com.elovirta.html2pdf.dir}/css"/>
   </target>
 
   <target name="dita2html2pdf"
@@ -22,10 +25,10 @@
              html5.css,
              html2pdf.copy-image"/>
 
-  
+
   <target name="html2pdf.copy-image" description="Copy image files">
     <copy todir="${dita.output.dir}" failonerror="false">
-      <ditafileset format="image"  />
+      <ditafileset format="image"/>
       <jobmapper type="temp"/>
     </copy>
   </target>
@@ -55,7 +58,8 @@
     </condition>
     <property name="html2pdf.args.xsl" value="${dita.plugin.com.elovirta.html2pdf.dir}/xsl/dita2html5.xsl"/>
     <pipeline message="Process the merged map to html5" taskname="xslt">
-      <xslt in="${dita.temp.dir.fullpath}/stage1.xml" out="${output.dir}/${outputFile.base}.html" style="${html2pdf.args.xsl}">
+      <xslt in="${dita.temp.dir.fullpath}/stage1.xml" out="${output.dir}/${outputFile.base}.html"
+        style="${html2pdf.args.xsl}">
         <param name="FILTERFILE" expression="${dita.input.valfile.url}" if:set="dita.input.valfile"/>
         <param name="CSS" expression="${args.css.file}" if:set="args.css.file"/>
         <param name="CSSPATH" expression="${user.csspath}" if:set="user.csspath"/>
