@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+$indent: 14pt;
+
+nav[role = toc] {
+  page-break-after: always;
+  counter-reset: toc1counter;
+
+  h1 {
+    font-family: Georgia, serif
+  }
+
+  ol li::before {
+    color: #9d9d9c
+  }
+
+  > ul {
+    padding-left: $indent;
+
+    > li::before {
+      margin-left: -($indent);
+      content: counter(toc1counter);
+      counter-increment: toc1counter
+    }
+
+    > li {
+      counter-reset: toc2counter;
+
+      > ul {
+        padding-left: $indent * 1.5;
+
+        > li::before {
+          margin-left: -($indent) * 1.5;
+          content: counter(toc1counter) "." counter(toc2counter);
+          counter-increment: toc2counter
+        }
+
+        > li {
+          counter-reset: toc3counter;
+
+          > ul {
+            padding-left: $indent * 2;
+
+            > li::before {
+              margin-left: -($indent) * 2;
+              content: counter(toc1counter) "." counter(toc2counter) "." counter(toc3counter);
+              counter-increment: toc3counter
+            }
+
+            > li {
+              counter-reset: toc4counter;
+
+              > ul {
+                padding-left: $indent * 2.5;
+
+                > li::before {
+                  margin-left: -($indent) * 2.5;
+                  content: counter(toc1counter) "." counter(toc2counter) "." counter(toc3counter) "." counter(toc4counter);
+                  counter-increment: toc4counter
+                }
+
+                > li {
+                  counter-reset: toc5counter;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+nav[role = toc]::before {
+  font-size: 13pt;
+  font-weight: bold;
+  margin-bottom: 6pt;
+  content: "Contents";
+}

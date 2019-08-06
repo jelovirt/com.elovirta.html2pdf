@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+.cover {
+  page-break-after: always;
+
+  img {
+    width: 50%;
+    margin: 0 0 12cm 0
+  }
+
+  h1 {
+    font-family: Georgia, serif;
+    font-weight: 100;
+    font-size: 30pt;
+    line-height: 1.1;
+    margin: 0 -2.2cm 1cm -2.2cm;
+    padding: 0 2.2cm;
+    color: #000
+  }
+  h1::before {
+    content: ""
+  }
+
+  .tenant-title {
+    font-size: 16pt;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: uppercase
+  }
+
+  .author {
+    display: none
+  }
+
+  .date {
+    font-size: 12pt;
+    line-height: 1
+  }
+
+}
+

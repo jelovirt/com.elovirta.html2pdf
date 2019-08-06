@@ -1,0 +1,174 @@
+@charset "UTF-8";
+
+body {
+  //margin-left: 15.2mm;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11pt;
+  line-height: 1.2;
+  counter-reset: h1counter
+}
+
+main[role=main] {
+  h1,
+  h2,
+  h3 {
+    font-size: 13pt
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: 11pt
+  }
+
+  h1 {
+    color: #000;
+    //margin-left: -15.2mm;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    page-break-before: always;
+    margin-top: 0;
+    counter-reset: h2counter;
+
+    &::before {
+      padding-right: 0.7em;
+      content: counter(h1counter);
+      counter-increment: h1counter
+    }
+
+  }
+
+  h2 {
+    color: #000;
+    //margin-left: -15.2mm;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    counter-reset: h3counter;
+
+    &::before {
+      padding-right: 0.7em;
+      content: counter(h1counter) "." counter(h2counter);
+      counter-increment: h2counter
+    }
+  }
+
+  h3 {
+    color: #000;
+    //margin-left: -15.2mm;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    counter-reset: h4counter;
+
+    &::before {
+      padding-right: 0.7em;
+      content: counter(h1counter) "." counter(h2counter) "." counter(h3counter);
+      counter-increment: h3counter
+    }
+  }
+
+  h4 {
+    color: #000;
+    //margin-left: -15.2mm;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    counter-reset: h5counter;
+
+    &::before {
+      padding-right: 0.7em;
+      content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "." counter(h4counter);
+      counter-increment: h4counter
+    }
+  }
+}
+
+h2.sectiontitle {
+  margin-top: 6pt;
+  margin-bottom: 6pt;
+  font-size: 13pt
+}
+
+p {
+  margin-top: 6pt;
+  margin-bottom: 6pt
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: #60afbf
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%
+}
+
+table {
+  border-collapse: collapse;
+  margin-top: 6pt;
+  margin-bottom: 6pt
+}
+
+th {
+  font-weight: bold
+}
+
+td,
+th {
+  border-color: #575756;
+  border-style: solid;
+  border-width: 1pt;
+  padding: 3pt
+}
+
+.note {
+  margin-top: 6pt;
+  margin-bottom: 6pt
+}
+
+.note__title,
+.notetitle,
+.warningtitle,
+.cautiontitle {
+  font-weight: bold
+}
+
+.warning {
+  border-top: solid 1pt black;
+  border-bottom: solid 1pt black;
+  padding: 6pt 0;
+  margin: 10pt 0
+}
+
+.cautiontitle {
+  border-top: solid 1pt black;
+  margin-top: 6pt
+}
+
+.caution {
+  border-bottom: solid 1pt black;
+  margin-bottom: 6pt
+}
+
+ul,
+ol {
+  margin-top: 6pt;
+  margin-bottom: 6pt
+}
+
+ul {
+  padding-left: 14pt;
+  list-style: none;
+
+  > li::before {
+    content: "\002012";
+    float: left;
+    margin-left: -13pt
+  }
+}
+
+ol {
+  padding-left: 20pt
+}

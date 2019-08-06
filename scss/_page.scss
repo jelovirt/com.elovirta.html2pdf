@@ -1,0 +1,38 @@
+@charset "UTF-8";
+@page {
+  size: A4;
+  margin: 25mm 17.8mm;
+  padding: 10mm 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11pt;
+  line-height: 1.2;
+  @top-left {
+    content: "";
+    font-size: 16pt;
+    font-style: italic;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 50%;
+    margin-bottom: 0
+  }
+  @top-right {
+    content: "";
+    width: 50%;
+    height: 15mm
+  }
+  @bottom-center {
+    font-size: 10pt;
+    font-weight: bold;
+    content: counter(page) " (" counter(pages) ")\a ";
+  }
+  @bottom-left {
+    font-size: 10pt;
+    font-weight: bold;
+    white-space: pre-line
+  }
+}
+
+@page :first {
+  @bottom-center {
+    content: none;
+  }
+}

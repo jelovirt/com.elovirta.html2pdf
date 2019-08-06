@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @page {
   size: A4;
   margin: 25mm 17.8mm;
@@ -11,217 +12,220 @@
     font-style: italic;
     font-family: Arial, Helvetica, sans-serif;
     width: 50%;
-    margin-bottom: 0
-  }
+    margin-bottom: 0; }
   @top-right {
     content: "";
     width: 50%;
-    height: 15mm
-  }
+    height: 15mm; }
   @bottom-center {
     font-size: 10pt;
     font-weight: bold;
-    content: counter(page) " (" counter(pages) ")\a ";
-    white-space: pre-line
-  }
+    content: counter(page) " (" counter(pages) ")\a "; }
   @bottom-left {
     font-size: 10pt;
     font-weight: bold;
-    white-space: pre-line
-  }
-}
-nav[role = toc] {
-  page-break-after: always;
-  counter-reset: h1counter
-}
+    white-space: pre-line; } }
+@page :first {
+  @bottom-center {
+    content: none; } }
+.cover {
+  page-break-after: always; }
+  .cover img {
+    width: 50%;
+    margin: 0 0 12cm 0; }
+  .cover h1 {
+    font-family: Georgia, serif;
+    font-weight: 100;
+    font-size: 30pt;
+    line-height: 1.1;
+    margin: 0 -2.2cm 1cm -2.2cm;
+    padding: 0 2.2cm;
+    color: #000; }
+  .cover h1::before {
+    content: ""; }
+  .cover .tenant-title {
+    font-size: 16pt;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: uppercase; }
+  .cover .author {
+    display: none; }
+  .cover .date {
+    font-size: 12pt;
+    line-height: 1; }
 
-nav[role = toc] h1 {
-  font-family: Georgia, serif
-}
-nav[role = toc] ol li:before {
-  color: #9d9d9c
-}
+nav[role=toc] {
+  page-break-after: always;
+  counter-reset: toc1counter; }
+  nav[role=toc] h1 {
+    font-family: Georgia, serif; }
+  nav[role=toc] ol li::before {
+    color: #9d9d9c; }
+  nav[role=toc] > ul {
+    padding-left: 14pt; }
+    nav[role=toc] > ul > li::before {
+      margin-left: -14pt;
+      content: counter(toc1counter);
+      counter-increment: toc1counter; }
+    nav[role=toc] > ul > li {
+      counter-reset: toc2counter; }
+      nav[role=toc] > ul > li > ul {
+        padding-left: 21pt; }
+        nav[role=toc] > ul > li > ul > li::before {
+          margin-left: -21pt;
+          content: counter(toc1counter) "." counter(toc2counter);
+          counter-increment: toc2counter; }
+        nav[role=toc] > ul > li > ul > li {
+          counter-reset: toc3counter; }
+          nav[role=toc] > ul > li > ul > li > ul {
+            padding-left: 28pt; }
+            nav[role=toc] > ul > li > ul > li > ul > li::before {
+              margin-left: -28pt;
+              content: counter(toc1counter) "." counter(toc2counter) "." counter(toc3counter);
+              counter-increment: toc3counter; }
+            nav[role=toc] > ul > li > ul > li > ul > li {
+              counter-reset: toc4counter; }
+              nav[role=toc] > ul > li > ul > li > ul > li > ul {
+                padding-left: 35pt; }
+                nav[role=toc] > ul > li > ul > li > ul > li > ul > li::before {
+                  margin-left: -35pt;
+                  content: counter(toc1counter) "." counter(toc2counter) "." counter(toc3counter) "." counter(toc4counter);
+                  counter-increment: toc4counter; }
+                nav[role=toc] > ul > li > ul > li > ul > li > ul > li {
+                  counter-reset: toc5counter; }
+
+nav[role=toc]::before {
+  font-size: 13pt;
+  font-weight: bold;
+  margin-bottom: 6pt;
+  content: "Contents"; }
+
 body {
-  margin-left: 15.2mm;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 11pt;
-  line-height: 1.2
-}
-h1,
-h2,
-h3 {
-  font-size: 13pt
-}
-h4,
-h5,
-h6 {
-  font-size: 11pt
-}
-body {
-  counter-reset: h1counter
-}
-h1 {
+  line-height: 1.2;
+  counter-reset: h1counter; }
+
+main[role=main] h1,
+main[role=main] h2,
+main[role=main] h3 {
+  font-size: 13pt; }
+main[role=main] h4,
+main[role=main] h5,
+main[role=main] h6 {
+  font-size: 11pt; }
+main[role=main] h1 {
   color: #000;
-  margin-left: -15.2mm;
   margin-top: 12pt;
   margin-bottom: 6pt;
   page-break-before: always;
   margin-top: 0;
-  counter-reset: h2counter
-}
-h1::before {
-  padding-right: 0.7em
-}
-h1::before {
-  content: counter(h1counter);
-  counter-increment: h1counter
-}
-h2 {
+  counter-reset: h2counter; }
+  main[role=main] h1::before {
+    padding-right: 0.7em;
+    content: counter(h1counter);
+    counter-increment: h1counter; }
+main[role=main] h2 {
   color: #000;
-  margin-left: -15.2mm;
   margin-top: 12pt;
   margin-bottom: 6pt;
-  counter-reset: h3counter
-}
-h2::before {
-  padding-right: 0.7em
-}
-h2::before {
-  content: counter(h1counter) "." counter(h2counter);
-  counter-increment: h2counter
-}
-h3 {
+  counter-reset: h3counter; }
+  main[role=main] h2::before {
+    padding-right: 0.7em;
+    content: counter(h1counter) "." counter(h2counter);
+    counter-increment: h2counter; }
+main[role=main] h3 {
   color: #000;
-  margin-left: -15.2mm;
   margin-top: 12pt;
   margin-bottom: 6pt;
-  counter-reset: h4counter
-}
-h3::before {
-  padding-right: 0.7em
-}
-h3::before {
-  content: counter(h1counter) "." counter(h2counter) "." counter(h3counter);
-  counter-increment: h3counter
-}
-h4 {
+  counter-reset: h4counter; }
+  main[role=main] h3::before {
+    padding-right: 0.7em;
+    content: counter(h1counter) "." counter(h2counter) "." counter(h3counter);
+    counter-increment: h3counter; }
+main[role=main] h4 {
   color: #000;
-  margin-left: -15.2mm;
   margin-top: 12pt;
   margin-bottom: 6pt;
-  counter-reset: h5counter
-}
-h4::before {
-  padding-right: 0.7em
-}
-h4::before {
-  content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "." counter(h4counter);
-  counter-increment: h4counter
-}
+  counter-reset: h5counter; }
+  main[role=main] h4::before {
+    padding-right: 0.7em;
+    content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "." counter(h4counter);
+    counter-increment: h4counter; }
+
 h2.sectiontitle {
   margin-top: 6pt;
   margin-bottom: 6pt;
-  font-size: 13pt
-}
+  font-size: 13pt; }
+
 p {
   margin-top: 6pt;
-  margin-bottom: 6pt
-}
+  margin-bottom: 6pt; }
+
 a:link,
 a:visited,
 a:hover,
 a:active {
   text-decoration: none;
-  color: #60afbf
-}
+  color: #60afbf; }
+
 img {
   max-width: 100%;
-  max-height: 100%
-}
+  max-height: 100%; }
+
 table {
   border-collapse: collapse;
   margin-top: 6pt;
-  margin-bottom: 6pt
-}
+  margin-bottom: 6pt; }
+
 th {
-  font-weight: bold
-}
+  font-weight: bold; }
+
 td,
 th {
   border-color: #575756;
   border-style: solid;
   border-width: 1pt;
-  padding: 3pt
-}
+  padding: 3pt; }
+
 .note {
   margin-top: 6pt;
-  margin-bottom: 6pt
-}
+  margin-bottom: 6pt; }
+
 .note__title,
 .notetitle,
 .warningtitle,
 .cautiontitle {
-  font-weight: bold
-}
+  font-weight: bold; }
+
 .warning {
   border-top: solid 1pt black;
   border-bottom: solid 1pt black;
   padding: 6pt 0;
-  margin: 10pt 0
-}
+  margin: 10pt 0; }
+
 .cautiontitle {
   border-top: solid 1pt black;
-  margin-top: 6pt
-}
+  margin-top: 6pt; }
+
 .caution {
   border-bottom: solid 1pt black;
-  margin-bottom: 6pt
-}
+  margin-bottom: 6pt; }
+
 ul,
 ol {
   margin-top: 6pt;
-  margin-bottom: 6pt
-}
+  margin-bottom: 6pt; }
+
 ul {
   padding-left: 14pt;
-  list-style: none
-}
-ul > li::before {
-  content: "\002012";
-  float: left;
-  margin-left: -13pt
-}
+  list-style: none; }
+  ul > li::before {
+    content: "\002012";
+    float: left;
+    margin-left: -13pt; }
+
 ol {
-  padding-left: 20pt
-}
+  padding-left: 20pt; }
 
-.cover {
-  page-break-after: always;
-}
-
-.cover img {
-  width: 50%;
-  margin: 0 0 12cm 0
-}
-.cover h1 {
-  font-family: Georgia, serif;
-  font-weight: 100;
-  font-size: 30pt;
-  line-height: 1.1;
-  margin: 0 -2.2cm 1cm -2.2cm;
-  padding: 0 2.2cm;
-  color: #000
-}
-.cover .tenant-title {
-  font-size: 16pt;
-  font-weight: 500;
-  line-height: 1;
-  text-transform: uppercase
-}
-.cover .author {
-  display: none
-}
-.cover .date {
-  font-size: 12pt;
-  line-height: 1
-}
+/*# sourceMappingURL=print.css.map */
