@@ -46,6 +46,7 @@
 
   <xsl:template match="*" mode="addContentToHtmlBodyElement">
     <article xsl:use-attribute-sets="article">
+      <!--
       <xsl:attribute name="aria-labelledby">
         <xsl:apply-templates
           select="
@@ -53,6 +54,7 @@
             self::dita/*[1]/*[contains(@class, ' topic/title ')]"
           mode="return-aria-label-id"/>
       </xsl:attribute>
+      -->
       <xsl:apply-templates select="*[contains(@class, ' ditaot-d/ditaval-startprop ')]" mode="out-of-line"/>
       <xsl:apply-templates/>
       <xsl:call-template name="gen-endnotes"/>
