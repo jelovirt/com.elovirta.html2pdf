@@ -1,5 +1,29 @@
 @charset "UTF-8";
 
+$font-family-sans-serif: "Noto Sans";
+$font-family-monospace: Inconsolata;
+$font-size-base: 11pt;
+$font-size-h1: 13pt;
+$font-size-h2: 13pt;
+$font-size-h3: 13pt;
+$font-size-h4: $font-size-base;
+$font-size-h5: $font-size-base;
+$font-size-h6: $font-size-base;
+
+@import "variables";
+
+@import "base/variables";
+@import "base/domains";
+@import "base/display-attr";
+@import "base/figures";
+@import "base/headings";
+@import "base/links";
+@import "base/lists";
+@import "base/notes";
+@import "base/phrases";
+@import "base/tables";
+@import "base/topic";
+
 @import "page";
 @import "cover";
 @import "toc";

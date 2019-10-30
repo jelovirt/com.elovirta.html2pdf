@@ -1,31 +1,18 @@
 @charset "UTF-8";
 
 body {
-  //margin-left: 15.2mm;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 11pt;
-  line-height: 1.2;
-  counter-reset: h1counter
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  counter-reset: h1counter;
 }
 
-main[role=main] {
-  h1,
-  h2,
-  h3 {
-    font-size: 13pt
-  }
-
-  h4,
-  h5,
-  h6 {
-    font-size: 11pt
-  }
-
+main[role="main"] {
   h1 {
     color: #000;
-    //margin-left: -15.2mm;
+    font-size: $font-size-h1; //13pt;
     margin-top: 12pt;
-    margin-bottom: 6pt;
+    margin-bottom: $padding-base-vertical;
     page-break-before: always;
     margin-top: 0;
     counter-reset: h2counter;
@@ -33,63 +20,71 @@ main[role=main] {
     &::before {
       padding-right: 0.7em;
       content: counter(h1counter);
-      counter-increment: h1counter
+      counter-increment: h1counter;
     }
-
   }
 
   h2 {
     color: #000;
-    //margin-left: -15.2mm;
-    margin-top: 12pt;
-    margin-bottom: 6pt;
+    font-size: $font-size-h2; //13pt;
+    margin-top: $padding-large-vertical;
+    margin-bottom: $padding-base-vertical;
     counter-reset: h3counter;
 
     &::before {
       padding-right: 0.7em;
       content: counter(h1counter) "." counter(h2counter);
-      counter-increment: h2counter
+      counter-increment: h2counter;
     }
   }
 
   h3 {
     color: #000;
-    //margin-left: -15.2mm;
-    margin-top: 12pt;
-    margin-bottom: 6pt;
+    font-size: $font-size-h3; //13pt;
+    margin-top: $padding-large-vertical;
+    margin-bottom: $padding-base-vertical;
     counter-reset: h4counter;
 
     &::before {
       padding-right: 0.7em;
       content: counter(h1counter) "." counter(h2counter) "." counter(h3counter);
-      counter-increment: h3counter
+      counter-increment: h3counter;
     }
   }
 
   h4 {
     color: #000;
-    //margin-left: -15.2mm;
+    font-size: $font-size-h4; //11pt;
     margin-top: 12pt;
-    margin-bottom: 6pt;
+    margin-bottom: $padding-base-vertical;
     counter-reset: h5counter;
 
     &::before {
       padding-right: 0.7em;
-      content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "." counter(h4counter);
-      counter-increment: h4counter
+      content: counter(h1counter) "." counter(h2counter) "." counter(h3counter)
+        "." counter(h4counter);
+      counter-increment: h4counter;
     }
+  }
+
+  h5 {
+    font-size: $font-size-h5; //11pt;
+  }
+
+  h6 {
+    font-size: $font-size-h6; //11pt;
   }
 }
 
 h2.sectiontitle {
-  margin-top: 6pt;
-  margin-bottom: 6pt;
-  font-size: 13pt
+  margin-top: $padding-base-vertical;
+  margin-bottom: $padding-base-vertical;
+  font-size: 13pt;
 }
 
 p {
-  margin-top: 6pt;
-  margin-bottom: 6pt
+  margin-top: $padding-base-vertical;
+  margin-bottom: $padding-base-vertical;
 }
 
 a:link,
@@ -97,22 +92,22 @@ a:visited,
 a:hover,
 a:active {
   text-decoration: none;
-  color: #60afbf
+  color: #60afbf;
 }
 
 img {
   max-width: 100%;
-  max-height: 100%
+  max-height: 100%;
 }
 
 table {
   border-collapse: collapse;
-  margin-top: 6pt;
-  margin-bottom: 6pt
+  margin-top: $padding-base-vertical;
+  margin-bottom: $padding-base-vertical;
 }
 
 th {
-  font-weight: bold
+  font-weight: bold;
 }
 
 td,
@@ -120,55 +115,62 @@ th {
   border-color: #575756;
   border-style: solid;
   border-width: 1pt;
-  padding: 3pt
+  padding: 3pt;
 }
 
 .note {
-  margin-top: 6pt;
-  margin-bottom: 6pt
+  margin-top: $padding-base-vertical;
+  margin-bottom: $padding-base-vertical;
 }
 
 .note__title,
 .notetitle,
 .warningtitle,
 .cautiontitle {
-  font-weight: bold
+  font-weight: bold;
 }
 
 .warning {
   border-top: solid 1pt black;
   border-bottom: solid 1pt black;
-  padding: 6pt 0;
-  margin: 10pt 0
+  padding: $padding-base-vertical 0;
+  margin: 10pt 0;
 }
 
 .cautiontitle {
   border-top: solid 1pt black;
-  margin-top: 6pt
+  margin-top: $padding-base-vertical;
 }
 
 .caution {
   border-bottom: solid 1pt black;
-  margin-bottom: 6pt
+  margin-bottom: $padding-base-vertical;
 }
 
 ul,
 ol {
-  margin-top: 6pt;
-  margin-bottom: 6pt
+  margin-top: $padding-base-vertical;
+  margin-bottom: $padding-base-vertical;
 }
 
-ul {
+ul, ul.linklist {
   padding-left: 14pt;
   list-style: none;
 
   > li::before {
     content: "\002012";
     float: left;
-    margin-left: -13pt
+    margin-left: -13pt;
   }
 }
 
 ol {
-  padding-left: 20pt
+  padding-left: 20pt;
+}
+
+.codeblock, codeph {
+  font-family: $font-family-monospace;
+}
+.codeblock {
+  margin-left: $padding-base-horizontal;
 }

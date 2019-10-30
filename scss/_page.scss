@@ -1,16 +1,16 @@
 @charset "UTF-8";
 @page {
   size: A4;
-  margin: 25mm 17.8mm;
+  margin: 15mm 17.8mm;
   padding: 10mm 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 11pt;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
   line-height: 1.2;
   @top-left {
     content: "";
     font-size: 16pt;
     font-style: italic;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: $font-family-base;
     width: 50%;
     margin-bottom: 0
   }

@@ -5,14 +5,40 @@
   <xsl:template match="/dita-merge">
     <dita>
       <xsl:comment>cover</xsl:comment>
-      <!-- cover -->
+      <xsl:apply-templates select="*[contains(@class, ' map/map ')]" mode="cover"/>
       <xsl:comment>TOC</xsl:comment>
-      <!-- TOC -->
       <xsl:apply-templates select="*[contains(@class, ' map/map ')]" mode="toc"/>
       <xsl:comment>content</xsl:comment>
-      <!-- content -->
       <xsl:apply-templates select="*[contains(@class, ' map/map ')]"/>
     </dita>
+  </xsl:template>
+
+  <xsl:template match="/dita-merge[*[contains(@class, ' bookmap/bookmap ')]]" priority="10">
+    <dita>
+      <xsl:comment>cover</xsl:comment>
+      <xsl:apply-templates select="*[contains(@class, ' map/map ')]" mode="cover"/>
+      <!--<xsl:comment>TOC</xsl:comment>-->
+      <!--<xsl:apply-templates select="*[contains(@class, ' map/map ')]" mode="toc"/>-->
+      <xsl:comment>content</xsl:comment>
+      <xsl:apply-templates select="*[contains(@class, ' map/map ')]"/>
+    </dita>
+  </xsl:template>
+
+  <!-- Cover -->
+
+  <xsl:template match="*[contains(@class, ' map/map ')]" mode="cover">
+    <topic class="- topic/topic " id="{generate-id()}" outputclass="cover">
+      <title class="- topic/title ">
+        <xsl:choose>
+          <xsl:when test="*[contains(@class, ' topic/title ')]">
+            <xsl:apply-templates select="*[contains(@class, ' topic/title ')]/node()"/>
+          </xsl:when>
+          <xsl:when test="@title">
+            <xsl:value-of select="@title"/>
+          </xsl:when>
+        </xsl:choose>
+      </title>
+    </topic>
   </xsl:template>
 
   <!-- TOC -->
@@ -22,7 +48,7 @@
       <xsl:apply-templates select="node() | @*" mode="#current"/>
     </xsl:copy>
   </xsl:template>
-  
+
   <xsl:template match="processing-instruction('ditaot')[. = ('gentext', 'genshortdesc')]" mode="toc" priority="10"/>
 
   <!-- Content -->
@@ -60,6 +86,19 @@
       </title>
       <xsl:apply-templates select="*[contains(@class, ' map/topicref ')]"/>
     </topic>
+  </xsl:template>
+
+  <xsl:template
+    match="
+      *[contains(@class, ' bookmap/frontmatter ')] |
+      *[contains(@class, ' bookmap/booklists ')]"
+    priority="10">
+    <xsl:apply-templates select="*[contains(@class, ' map/topicref ')]"/>
+  </xsl:template>
+
+  <xsl:template match="*[contains(@class, ' bookmap/toc ')]" priority="10">
+    <xsl:comment>TOC</xsl:comment>
+    <xsl:apply-templates select="/dita-merge/*[contains(@class, ' map/map ')]" mode="toc"/>
   </xsl:template>
 
   <xsl:template match="*[contains(@class, ' topic/topic ')]">

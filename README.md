@@ -14,4 +14,4 @@ This will generate `guide.html` that can be formatted to PDF using [WeasyPrint](
 
 ## License
 
-The DITA to print HTML5plug-in is currenly _not_ licensed under any license.
+The DITA to print HTML5 plug-in is currently _not_ licensed under any license.

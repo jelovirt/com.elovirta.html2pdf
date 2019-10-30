@@ -18,6 +18,10 @@ nav[role="toc"] {
     color: #9d9d9c;
   }
 
+  ul {
+    page-break-before: avoid;
+  }
+
   > ul {
     padding-left: $indent;
 
@@ -26,15 +30,18 @@ nav[role="toc"] {
       content: counter(toc1counter);
       counter-increment: toc1counter;
     }
-
     > li {
       counter-reset: toc2counter;
 
+      > a {
+        font-weight: bold;
+      }
+
       > ul {
-        padding-left: $indent * 1.5;
+        padding-left: $indent * 2;
 
         > li::before {
-          margin-left: -($indent) * 1.5;
+          margin-left: -($indent) * 2;
           content: counter(toc1counter) "." counter(toc2counter);
           counter-increment: toc2counter;
         }
@@ -43,10 +50,10 @@ nav[role="toc"] {
           counter-reset: toc3counter;
 
           > ul {
-            padding-left: $indent * 2;
+            padding-left: $indent * 2.5;
 
             > li::before {
-              margin-left: -($indent) * 2;
+              margin-left: -($indent) * 2.5;
               content: counter(toc1counter) "." counter(toc2counter) "."
                 counter(toc3counter);
               counter-increment: toc3counter;
@@ -56,10 +63,10 @@ nav[role="toc"] {
               counter-reset: toc4counter;
 
               > ul {
-                padding-left: $indent * 2.5;
+                padding-left: $indent * 3.5;
 
                 > li::before {
-                  margin-left: -($indent) * 2.5;
+                  margin-left: -($indent) * 3.5;
                   content: counter(toc1counter) "." counter(toc2counter) "."
                     counter(toc3counter) "." counter(toc4counter);
                   counter-increment: toc4counter;
@@ -67,6 +74,10 @@ nav[role="toc"] {
 
                 > li {
                   counter-reset: toc5counter;
+
+                  > ul {
+                    display: none;
+                  }
                 }
               }
             }
@@ -84,8 +95,12 @@ nav[role="toc"] {
   }
 }
 nav[role="toc"]::before {
+  display: block;
+  color: #000;
   font-size: 13pt;
-  font-weight: bold;
+  margin-top: 12pt;
   margin-bottom: 6pt;
+  page-break-before: always;
+  font-weight: bold;
   content: "Contents";
 }

@@ -3,4 +3,5 @@
 <plugin id="com.elovirta.html2pdf" version="0.1.0">
   <feature extension="ant.import" file="build.xml"/>
   <transtype name="html2pdf" extends="html5"/>
+  <template file="build_template.xml"/>
 </plugin>
